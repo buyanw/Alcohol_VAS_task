@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <title>VAS Task</title>
+  <link href="jspsych/dist/jspsych.css" rel="stylesheet" />
+
+  <script src="jspsych/dist/jspsych.js"></script>
+  <script src="jspsych/dist/plugin-survey-html-form.js"></script>
+  <script src="jspsych/dist/plugin-preload.js"></script>
+  <script src="jspsych/dist/plugin-html-keyboard-response.js"></script>
+  <script src="jspsych/dist/plugin-survey.js"></script>
+  <script src="jspsych/dist/plugin-fullscreen.js"></script>
+
+  <!-- Our custom plugin -->
+  <script src="plugin-three-vas.js"></script>
+
+  <style>
+    body { background: #000; }
+    body { font-family: "Microsoft YaHei","PingFang SC","Noto Sans SC", Arial, sans-serif; }
+
+  </style>
+</head>
+<body></body>
+
+<script>
+(async () => {
+  // Load stimuli manifest
+   const jsPsych = initJsPsych({
+    on_finish: () => {
+      const csv = jsPsych.data.get().csv();
+      const blob = new Blob([csv], {type: "text/csv;charset=utf-8"});
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "vas_task_data.csv";
+      a.click();
+    }
+  });
+  const manifest = await fetch("manifest.json").then(r => r.json());
+
+  // Shuffle like randperm
+  const stimuli = jsPsych.randomization.shuffle(manifest);
+
+  const blockSize = 60;      // TODO: 按你的 MATLAB 参数改
+  const fixationMs = 1500;   // TODO: 按你的 MATLAB 参数改
+
+ 
+
+  const timeline = [];
+
+  // Subject / session
+  timeline.push({
+  type: jsPsychSurveyHtmlForm,
+  html: `
+    <div style="color:white; font-family:Arial; max-width:700px; margin:40px auto; line-height:1.8;">
+      <p>Subject ID: <input name="subject_id" required></p>
+      <p>Session ID: <input name="session_id" required></p>
+  
+    </div>
+  `,
+  on_finish: (data) => {
+    // 不同版本字段名可能是 data.response 或 data.responses
+    const resp = data.response || data.responses || {};
+    jsPsych.data.addProperties({
+      subject_id: resp.subject_id,
+      session_id: resp.session_id
+    });
+  }
+});
+
+  // Brightness instruction (cannot force brightness)
+  timeline.push({
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: `
+      <div style="color:white; font-family:Arial; max-width:900px; margin:40px auto; line-height:1.6;">
+        <h2>亮度/环境提示</h2>
+        <p>请尽量在光线稳定的环境进行实验。</p>
+        <p><b>请将屏幕亮度调到中等偏上</b>，并确保你能分辨下面灰阶差异：</p>
+        <div style="display:flex; gap:6px; margin:18px 0;">
+          <div style="width:90px; height:50px; background:#111;"></div>
+          <div style="width:90px; height:50px; background:#333;"></div>
+          <div style="width:90px; height:50px; background:#555;"></div>
+          <div style="width:90px; height:50px; background:#777;"></div>
+          <div style="width:90px; height:50px; background:#999;"></div>
+          <div style="width:90px; height:50px; background:#bbb;"></div>
+        </div>
+        <p>按空格继续。</p>
+      </div>
+    `,
+    choices: [" "]
+  });
+
+  // Fullscreen (recommended)
+  timeline.push({
+    type: jsPsychFullscreen,
+    fullscreen_mode: true
+  });
+
+  // Preload images
+  timeline.push({
+    type: jsPsychPreload,
+    images: stimuli.map(s => s.image)
+  });
+
+  // Start screen
+  // 需要：jsPsychHtmlKeyboardResponse 插件（jspsych 7/8里常用）
+timeline.push({
+  type: jsPsychHtmlKeyboardResponse,
+    stimulus: `
+      <div style="color:white; max-width: 900px; margin: 0 auto; text-align: left; font-size: 26px; line-height: 1.7;">
+        <div style="font-size: 32px; font-weight: 600;">图片评分任务（酒精线索）</div>
+        <br/>
+        
+        每张图片后，用鼠标在三条连续量表（VAS）上评分：<br/>
+        1) 渴求（无 → 强）<br/>
+        2) 情绪效价（非常不愉快 → 非常愉快）<br/>
+        3) 情绪唤醒（非常平静 → 非常兴奋）<br/><br/>
+        拖动滑块到合适位置后点击确认进入下一条量表。<br/>
+        （不显示数值，仅显示滑块位置）<br/><br/>
+        <b>按空格键开始；按 ESC 退出，数据会保留。</b>
+      </div>
+    `,
+      choices: [" "], // 空格开始
+  
+
+});
+
+  // Main loop
+  for (let i = 0; i < stimuli.length; i++) {
+    const s = stimuli[i];
+
+   // fixation
+timeline.push({
+  type: jsPsychHtmlKeyboardResponse,
+  stimulus: `
+    <div style="
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      height:100vh;
+      color:white;
+      font-size:56px;
+    ">+</div>
+  `,
+  choices: "NO_KEYS",
+  trial_duration: fixationMs,
+  data: { phase: "fixation" }
+});
+
+
+    // one-page 3 VAS
+    timeline.push({
+      type: jsPsychThreeVas, // from plugin-three-vas.js
+      stimulus: s.image,
+      image_id: s.image_id,
+      library: s.library,
+
+      // Pixel-consistent layout
+      frame_width: 1024,
+      frame_height: 768,
+      image_box_width: 900,
+      image_box_height: 520,
+
+      // If you later add calibration, set scale here (e.g., from jsPsych.data.getLastTrialData().values()[0].scale)
+      scale: 1.0,
+
+      q1: "渴求度",
+      q2: "愉悦程度",
+      q3: "唤醒程度",
+      left_label_1: "不渴求",      right_label_1: "强烈渴求",
+      left_label_2: "不愉快", right_label_2: "愉快",
+      left_label_3: "平静",      right_label_3: "兴奋",
+      button_label: "确认",
+
+      data: {phase: "three_vas", trial_index: i+1}
+    });
+
+    // break every block
+    if ((i+1) % blockSize === 0 && (i+1) < stimuli.length) {
+      timeline.push({
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: `<div style="color:white; font-family:Arial; text-align:center; margin-top:120px;">
+          <p>休息一下</p>
+          <p>按空格继续</p>
+        </div>`,
+        choices: [" "],
+        data: {phase: "break"}
+      });
+    }
+  }
+
+  // Exit fullscreen & end
+  timeline.push({
+    type: jsPsychFullscreen,
+    fullscreen_mode: false
+  });
+
+  timeline.push({
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: `<div style="color:white; font-family:Arial; text-align:center; margin-top:120px;">
+      <p>完成！谢谢参与。</p>
+      <p>按空格导出数据（CSV）。</p>
+    </div>`,
+    choices: [" "]
+  });
+
+  // Add global subject/session to all trials
+  jsPsych.data.addProperties({
+    subject_id: null,
+    session_id: null
+  });
+
+  // After subject/session screen, save them to global props
+  jsPsych.run(timeline);
+
+  // Hook: set global subject/session after first survey finishes
+  jsPsych.onTrialFinish((data) => {
+    if (data.trial_type && data.trial_type.includes("survey-text") && data.response) {
+      try {
+        const r = JSON.parse(data.response);
+        if (r.subject_id) jsPsych.data.addProperties({subject_id: r.subject_id});
+        if (r.session_id) jsPsych.data.addProperties({session_id: r.session_id});
+      } catch(e) {}
+    }
+  });
+
+})();
+</script>
+</html>

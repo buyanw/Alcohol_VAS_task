@@ -1,0 +1,6 @@
+subject_id,session_id,trial_num,image_id,library,urge,valence,arousal,onset_time,rt_urge,rt_valence,rt_arousal
+20260126,S1,1,49.png,Gemini3_alcohol_12.25resize,67.969,33.594,67.344,80448.561339,11.225,11.225,11.225
+20260126,S1,2,48.png,Gemini3_alcohol_12.25resize,69.531,36.406,38.750,80461.562437,18.587,18.587,18.587
+20260126,S1,3,160.png,Gemini3_alcohol_12.25resize,68.438,28.281,44.062,80481.938832,4.390,4.390,4.390
+20260126,S1,4,N044.png,GAPED_neutral_resized,67.188,56.094,57.344,80488.040179,38.137,38.137,38.137
+20260126,S1,5,SDC11586.jpg,ABPS_alcohol,50.000,50.000,50.000,80528.201006,14.376,14.376,14.376
