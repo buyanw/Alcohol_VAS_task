@@ -28,11 +28,16 @@
   // Load stimuli manifest
    const jsPsych = initJsPsych({
     on_finish: () => {
-      const csv = jsPsych.data.get().csv();
-      const blob = new Blob([csv], {type: "text/csv;charset=utf-8"});
+      const subject_id = jsPsych.data.get().select("subject_id").values.slice(-1)[0] || "NA";
+      const session_id = jsPsych.data.get().select("session_id").values.slice(-1)[0] || "NA";
+      
+      const csv = "\uFEFF" + jsPsych.data.get().csv();
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+
       const a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
-      a.download = "vas_task_data.csv";
+      const safeName = `${subject_id}_${session_id}_vas_task.csv`;
+      a.download= safeName;
       a.click();
     }
   });
@@ -84,10 +89,20 @@
           <div style="width:90px; height:50px; background:#999;"></div>
           <div style="width:90px; height:50px; background:#bbb;"></div>
         </div>
-        <p>按空格继续。</p>
-      </div>
+       <!-- 继续区域（按钮 + 扩大的点击范围） -->
+        <button id="continueBtn" style="
+          font-size:20px;
+          padding:10px 26px;
+          border-radius:10px;
+          border:0;
+          cursor:pointer;
+        ">继续</button>
     `,
-    choices: [" "]
+    on_load: () => {
+    const finish = () => jsPsych.finishTrial();
+    document.getElementById("continueBtn")?.addEventListener("click", (e) => { e.stopPropagation(); finish(); });
+    document.getElementById("continueArea")?.addEventListener("click", finish);
+  }
   });
 
   // Fullscreen (recommended)
@@ -117,11 +132,21 @@ timeline.push({
         3) 情绪唤醒（非常平静 → 非常兴奋）<br/><br/>
         拖动滑块到合适位置后点击确认进入下一条量表。<br/>
         （不显示数值，仅显示滑块位置）<br/><br/>
-        <b>按空格键开始；按 ESC 退出，数据会保留。</b>
-      </div>
+        <b>点击继续</b> 
+        </div>
+      <!-- 继续区域（按钮 + 扩大的点击范围） -->
+        <button id="continueBtn" style="
+          font-size:20px;
+          padding:10px 26px;
+          border-radius:10px;
+          border:0;
+          cursor:pointer;
+        ">继续</button>
     `,
-      choices: [" "], // 空格开始
-  
+     on_load: () => {
+    const finish = () => jsPsych.finishTrial();
+    document.getElementById("continueBtn")?.addEventListener("click", (e) => { e.stopPropagation(); finish(); });
+    }
 
 });
 
@@ -181,9 +206,20 @@ timeline.push({
         type: jsPsychHtmlKeyboardResponse,
         stimulus: `<div style="color:white; font-family:Arial; text-align:center; margin-top:120px;">
           <p>休息一下</p>
-          <p>按空格继续</p>
-        </div>`,
-        choices: [" "],
+          <p>点击继续</p>
+        </div>
+        <button id="continueBtn" style="
+          font-size:20px;
+          padding:10px 26px;
+          border-radius:10px;
+          border:0;
+          cursor:pointer;
+        ">继续</button>
+        `,
+            on_load: () => {
+    const finish = () => jsPsych.finishTrial();
+    document.getElementById("continueBtn")?.addEventListener("click", (e) => { e.stopPropagation(); finish(); });
+    },
         data: {phase: "break"}
       });
     }
@@ -199,9 +235,19 @@ timeline.push({
     type: jsPsychHtmlKeyboardResponse,
     stimulus: `<div style="color:white; font-family:Arial; text-align:center; margin-top:120px;">
       <p>完成！谢谢参与。</p>
-      <p>按空格导出数据（CSV）。</p>
-    </div>`,
-    choices: [" "]
+      </div>
+      <button id="continueBtn" style="
+          font-size:20px;
+          padding:10px 26px;
+          border-radius:10px;
+          border:0;
+          cursor:pointer;
+        ">点击导出数据</button>`,
+    on_load: () => {
+    const finish = () => jsPsych.finishTrial();
+    document.getElementById("continueBtn")?.addEventListener("click", (e) => { e.stopPropagation(); finish(); });
+   document.getElementById("continueArea")?.addEventListener("click", finish); 
+  }
   });
 
   // Add global subject/session to all trials

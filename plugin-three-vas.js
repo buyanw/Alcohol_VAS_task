@@ -43,26 +43,25 @@
       const s = trial.scale || 1.0;
 
       const ratings = { r1: null, r2: null, r3: null };
+      const touched = { r1: false, r2: false, r3: false };
 
       // Derive image folder (parent directory) and image file name from the stimulus path/URL.
-      // Example stimulus: "images/food/img001.jpg" -> folder="food", file="img001.jpg"
       function deriveImageMeta(stimulus){
         try{
           const url = new URL(stimulus, window.location.href);
-          const path = url.pathname; // strips query/hash
+          const path = url.pathname;
           const parts = path.split("/").filter(Boolean);
           const image_file = parts.length ? parts[parts.length - 1] : "";
           const image_folder = parts.length >= 2 ? parts[parts.length - 2] : "";
           return { image_folder, image_file };
         }catch(e){
           const path = String(stimulus || "").split("?")[0].split("#")[0];
-          const parts = path.split(/[\/]/).filter(Boolean); // supports backslashes too
+          const parts = path.split(/[\/]/).filter(Boolean);
           const image_file = parts.length ? parts[parts.length - 1] : "";
           const image_folder = parts.length >= 2 ? parts[parts.length - 2] : "";
           return { image_folder, image_file };
         }
       }
-
 
       display_element.innerHTML = `
         <style>
@@ -85,9 +84,17 @@
             margin-top:${Math.round(20*s)}px;
           }
           .imgbox img{ width:100%; height:100%; object-fit:contain; }
-          canvas{ display:block; margin-top:${Math.round(10*s)}px; }
+
+          /* 让三条bar整体更靠上：canvas上边距变小 */
+          canvas{
+            display:block;
+            margin-top:${Math.round(4*s)}px;
+            cursor:pointer;
+            touch-action:none; /* pointer事件 + 触控拖动更稳 */
+          }
+
           button{
-            margin-top:${Math.round(10*s)}px;
+            margin-top:${Math.round(8*s)}px;
             font-size:${Math.round(18*s)}px;
             padding:${Math.round(8*s)}px ${Math.round(18*s)}px;
             border-radius:${Math.round(10*s)}px;
@@ -107,10 +114,11 @@
       const canvas = display_element.querySelector("#vasCanvas");
       const btn = display_element.querySelector("#confirmBtn");
 
+      // ===== 尺寸：略微紧凑，让bar“往上”并减少空白 =====
       const logicalW = Math.round(900 * s);
-      const logicalH = Math.round(210 * s);
-      const dpr = window.devicePixelRatio || 1;
+      const logicalH = Math.round(130* s);
 
+      const dpr = window.devicePixelRatio || 1;
       canvas.style.width = `${logicalW}px`;
       canvas.style.height = `${logicalH}px`;
       canvas.width = Math.round(logicalW * dpr);
@@ -119,14 +127,15 @@
       const ctx = canvas.getContext("2d");
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      const padX = Math.round(90 * s);
+      // ===== bar变短：加大左右 padding =====
+      const padX = Math.round(140 * s);  // 原来 90*s；变大 => bar 变短
       const x1 = padX;
       const x2 = logicalW - padX;
 
-      const y1 = Math.round(45 * s);
-      const y2 = Math.round(110 * s);
-      const y3 = Math.round(175 * s);
-      const ys = [y1, y2, y3];
+      // ===== 三条bar在canvas里稍微上移：用更紧凑的y布局 =====
+      const yStart = Math.round(20 * s);
+      const yGap   = Math.round(45 * s);
+      const ys = [yStart, yStart + yGap, yStart + 2*yGap];
 
       const q = [
         {title: trial.q1, l: trial.left_label_1, r: trial.right_label_1, key:"r1"},
@@ -134,16 +143,24 @@
         {title: trial.q3, l: trial.left_label_3, r: trial.right_label_3, key:"r3"},
       ];
 
+      // 命中范围（不点在线上也能识别）：加大容差
+      const HIT_TOL = Math.round(26 * s);   // 原来 ~18*s
+      const LABEL_GAP = Math.round(12 * s); // 标签离端点的距离
+
       function draw() {
         ctx.clearRect(0,0,logicalW,logicalH);
 
         q.forEach((qq, i) => {
           const y = ys[i];
 
+          // title（保留在bar上方）
           ctx.fillStyle = "#fff";
           ctx.font = `${Math.round(16*s)}px Arial`;
-          ctx.fillText(qq.title, 10, y - Math.round(12*s));
+          ctx.textAlign = "left";
+          ctx.textBaseline = "alphabetic";
+          ctx.fillText(qq.title, 10, y );
 
+          // main line
           ctx.strokeStyle = "#fff";
           ctx.lineWidth = Math.max(2, Math.round(2*s));
           ctx.beginPath();
@@ -151,6 +168,7 @@
           ctx.lineTo(x2, y);
           ctx.stroke();
 
+          // end ticks
           ctx.beginPath();
           ctx.moveTo(x1, y - Math.round(8*s));
           ctx.lineTo(x1, y + Math.round(8*s));
@@ -158,31 +176,48 @@
           ctx.lineTo(x2, y + Math.round(8*s));
           ctx.stroke();
 
+          // labels moved to BOTH SIDES of the bar (left/right of endpoints)
           ctx.font = `${Math.round(12*s)}px Arial`;
-          ctx.fillText(qq.l, x1, y + Math.round(22*s));
-          const w = ctx.measureText(qq.r).width;
-          ctx.fillText(qq.r, x2 - w, y + Math.round(22*s));
+          ctx.textBaseline = "middle";
 
-          const val = ratings[qq.key];
-          if (val !== null) {
-            const x = x1 + (val/100)*(x2-x1);
-            ctx.beginPath();
-            ctx.arc(x, y, Math.round(6*s), 0, Math.PI*2);
+          ctx.textAlign = "right";
+          ctx.fillText(qq.l, x1 - LABEL_GAP, y);
+
+          ctx.textAlign = "left";
+          ctx.fillText(qq.r, x2 + LABEL_GAP, y);
+
+          // thumb
+        const val = ratings[qq.key];
+
+// 默认显示：如果没作答，就显示在 50%
+        const shownVal = (val === null) ? 50 : val;
+        const x = x1 + (shownVal/100) * (x2 - x1);
+
+// 画点：未作答时画“空心点”，作答后画“实心点”
+        ctx.beginPath();
+        ctx.arc(x, y, Math.round(6*s), 0, Math.PI*2);
+
+        if (val === null) {
+            ctx.strokeStyle = "#fff";
+            ctx.lineWidth = Math.max(2, Math.round(2*s));
+            ctx.stroke();
+        } else {
+            ctx.fillStyle = "#fff";
             ctx.fill();
-          }
+    }
+
         });
 
-        btn.disabled = !(ratings.r1 !== null && ratings.r2 !== null && ratings.r3 !== null);
-      }
+        btn.disabled = !(touched.r1 && touched.r2 && touched.r3);
+        }
 
-      function whichLine(clickY) {
-        const tol = Math.round(18*s);
+      function whichLine(pointerY) {
         let best = -1, bestD = Infinity;
         for (let i=0;i<ys.length;i++){
-          const d = Math.abs(clickY - ys[i]);
+          const d = Math.abs(pointerY - ys[i]);
           if (d < bestD) { bestD = d; best = i; }
         }
-        return bestD <= tol ? best : -1;
+        return bestD <= HIT_TOL ? best : -1;
       }
 
       function xToRating(x) {
@@ -190,48 +225,68 @@
         return Math.round(((clamped - x1)/(x2-x1))*100);
       }
 
-      canvas.addEventListener("mousedown", (e) => {
-        const rect = canvas.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+      // ===== 更大的点击/拖动范围：pointerdown + pointermove（按住拖动） =====
+      let dragging = false;
+      let dragIdx = -1;
 
+      function getCanvasXY(e){
+        const rect = canvas.getBoundingClientRect();
+        return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+      }
+
+      function setRatingByPointer(e, idx){
+        const { x } = getCanvasXY(e);
+        const k = q[idx].key;
+        ratings[k] = xToRating(x);
+        touched[k] = true;
+        draw();
+
+      }
+
+      canvas.addEventListener("pointerdown", (e) => {
+        const { y } = getCanvasXY(e);
         const idx = whichLine(y);
         if (idx === -1) return;
-        ratings[q[idx].key] = xToRating(x);
-        draw();
+
+        dragging = true;
+        dragIdx = idx;
+
+        canvas.setPointerCapture?.(e.pointerId);
+        setRatingByPointer(e, idx);
       });
+
+      canvas.addEventListener("pointermove", (e) => {
+        if (!dragging || dragIdx === -1) return;
+        // 拖动时不需要一直“对准线”，只要在按住状态就更新同一条
+        setRatingByPointer(e, dragIdx);
+      });
+
+      function endDrag(){
+        dragging = false;
+        dragIdx = -1;
+      }
+      canvas.addEventListener("pointerup", endDrag);
+      canvas.addEventListener("pointercancel", endDrag);
+      canvas.addEventListener("pointerleave", () => { /* 不强制结束，避免capture时跳 */ });
 
       btn.addEventListener("click", () => {
         const rt = Math.round(performance.now() - start_time);
-        // --- 关键修改在这里 ---
         this.jsPsych.finishTrial({
-          // 添加一个明确的标记，表示这是一条有效的VAS数据
-          is_vas_response: true, 
+          is_vas_response: true,
 
-
-          // image meta extracted from stimulus path
           image_folder: deriveImageMeta(trial.stimulus).image_folder,
           image_file: deriveImageMeta(trial.stimulus).image_file,
 
-          // identifiers
           image_id: trial.image_id,
           library: trial.library,
           stimulus: trial.stimulus,
 
-          // VAS ratings (0-100)
           craving: ratings.r1,
           valence: ratings.r2,
           arousal: ratings.r3,
 
-          // keep raw keys too (optional)
-          // r1: ratings.r1, // 我注释掉了重复的键，使数据更整洁
-          // r2: ratings.r2,
-          // r3: ratings.r3,
-
-          // reaction time (ms) from image onset to confirm
           rt: rt
         });
-        // -----------------------
       });
 
       draw();
