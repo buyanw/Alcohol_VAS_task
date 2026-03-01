@@ -1,0 +1,2 @@
+subject_id,session_id,trial_num,image_id,library,urge,valence,arousal,onset_time,rt_urge,rt_valence,rt_arousal
+20260126,S1,1,22.png,Gemini3_alcohol_12.25resize,61.719,39.375,45.312,77488.484387,5.992,5.992,5.992

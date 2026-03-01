@@ -1,0 +1,42 @@
+[
+  {
+    "image": "stimuli/Gemini3_alcohol_12.25resize/165.png",
+    "folder": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli/Gemini3_alcohol_12.25resize/120.png",
+    "folder": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli/ABPS_alcohol/SDC11500.jpg",
+    "folder": "ABPS_alcohol"
+  },
+  {
+    "image": "stimuli/ABPS_alcohol/SDC11498.jpg",
+    "folder": "ABPS_alcohol"
+  },
+  {
+    "image": "stimuli/WFAIS_alcohol_resized/00309.png",
+    "folder": "WFAIS_alcohol_resized"
+  },
+  {
+    "image": "stimuli/WFAIS_alcohol_resized/00047.png",
+    "folder": "WFAIS_alcohol_resized"
+  },
+  {
+    "image": "stimuli/control_gemini/20.png",
+    "folder": "control_gemini"
+  },
+  {
+    "image": "stimuli/control_gemini/97.png",
+    "folder": "control_gemini"
+  },
+  {
+    "image": "stimuli/GAPED_neutral_resized/N001.png",
+    "folder": "GAPED_neutral_resized"
+  },
+  {
+    "image": "stimuli/GAPED_neutral_resized/N006.png",
+    "folder": "GAPED_neutral_resized"
+  }
+]

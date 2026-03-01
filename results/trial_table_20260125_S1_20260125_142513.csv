@@ -1,0 +1,3 @@
+subject_id,session_id,trial_num,image_id,library,urge,valence,arousal,onset_time,rt_urge,rt_valence,rt_arousal
+20260125,S1,1,00468.png,WFAIS_alcohol_resized,67.031,41.250,63.906,191.380229,7.900,7.900,7.900
+20260125,S1,2,139.png,Gemini3_alcohol_12.25resize,66.562,37.656,36.562,201.006032,19.686,19.686,19.686
