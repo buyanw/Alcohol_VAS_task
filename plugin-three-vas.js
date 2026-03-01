@@ -30,7 +30,9 @@
         right_label_3: { type: PT.STRING, default: "Aroused" },
 
         scale: { type: PT.FLOAT, default: 1.0 },
-        button_label: { type: PT.STRING, default: "Confirm" }
+        button_label: { type: PT.STRING, default: "Confirm" },
+
+    
       }
     };
 
@@ -128,9 +130,13 @@
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
       // ===== bar变短：加大左右 padding =====
-      const padX = Math.round(140 * s);  // 原来 90*s；变大 => bar 变短
-      const x1 = padX;
-      const x2 = logicalW - padX;
+      // 给左侧更多空间放 title：左 padding 大一点，右 padding 小一点
+      const padLeft  = Math.round(((trial.bar_pad_left  ?? 150) * s));
+      const padRight = Math.round(((trial.bar_pad_right ?? 140) * s));
+
+      const x1 = padLeft;
+      const x2 = logicalW - padRight;
+
 
       // ===== 三条bar在canvas里稍微上移：用更紧凑的y布局 =====
       const yStart = Math.round(20 * s);
@@ -153,12 +159,14 @@
         q.forEach((qq, i) => {
           const y = ys[i];
 
-          // title（保留在bar上方）
+          // title（保留在bar上方） — 支持通过 trial.title_left_shift 向左移动
+          const rawShift = (typeof trial.title_left_shift !== 'undefined') ? trial.title_left_shift : 50;
+          const titleX = Math.max(0, 10 - Math.round(rawShift * s));
           ctx.fillStyle = "#fff";
           ctx.font = `${Math.round(16*s)}px Arial`;
           ctx.textAlign = "left";
           ctx.textBaseline = "alphabetic";
-          ctx.fillText(qq.title, 10, y );
+          ctx.fillText(qq.title, titleX, y );
 
           // main line
           ctx.strokeStyle = "#fff";
@@ -189,7 +197,7 @@
           // thumb
         const val = ratings[qq.key];
 
-// 默认显示：如果没作答，就显示在 50%
+ // 默认显示：如果没作答，就显示在 50%
         const shownVal = (val === null) ? 50 : val;
         const x = x1 + (shownVal/100) * (x2 - x1);
 
@@ -198,9 +206,9 @@
         ctx.arc(x, y, Math.round(6*s), 0, Math.PI*2);
 
         if (val === null) {
-            ctx.strokeStyle = "#fff";
+ /*           ctx.strokeStyle = "#fff";
             ctx.lineWidth = Math.max(2, Math.round(2*s));
-            ctx.stroke();
+            ctx.stroke();*/
         } else {
             ctx.fillStyle = "#fff";
             ctx.fill();
@@ -223,7 +231,7 @@
       function xToRating(x) {
         const clamped = Math.max(x1, Math.min(x2, x));
         return Math.round(((clamped - x1)/(x2-x1))*100);
-      }
+      } 
 
       // ===== 更大的点击/拖动范围：pointerdown + pointermove（按住拖动） =====
       let dragging = false;
