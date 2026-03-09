@@ -111,16 +111,32 @@
     fullscreen_mode: true
   });
 
-  // Preload images
-  timeline.push({
-    type: jsPsychPreload,
-    images: stimuli.map(s => s.image)
-  });
+  
+   // Helpers: block preload + warm decode
+  function warmupImage(src) {
+    if (!src) return;
+
+    const img = new Image();
+    img.src = src;
+
+    // 强制浏览器尽早解码，减少真正显示时的等待
+    if (typeof img.decode === "function") {
+      img.decode().catch(() => {});
+    }
+  }
+
+  function warmupUpcomingImages(stimuliList, startIndex, count = 2) {
+    for (let k = 0; k < count; k++) {
+      const next = stimuliList[startIndex + k];
+      if (next?.image) {
+        warmupImage(next.image);
+      }
+    }
+  }
 
   // Start screen
-  // 需要：jsPsychHtmlKeyboardResponse 插件（jspsych 7/8里常用）
-timeline.push({
-  type: jsPsychHtmlKeyboardResponse,
+  timeline.push({
+    type: jsPsychHtmlKeyboardResponse,
     stimulus: `
       <div style="color:white; max-width: 900px; margin: 0 auto; text-align: left; font-size: 26px; line-height: 1.7;">
         <div style="font-size: 32px; font-weight: 600;">图片评分任务（酒精线索）</div>
@@ -132,100 +148,128 @@ timeline.push({
         3) 情绪唤醒（非常兴奋 → 非常平静）<br/><br/>
         拖动滑块到合适位置后点击确认进入下一条量表。<br/>
         （不显示数值，仅显示滑块位置）<br/><br/>
-        <b>点击继续</b> 
-        </div>
-      <!-- 继续区域（按钮 + 扩大的点击范围） -->
-        <button id="continueBtn" style="
-          font-size:20px;
-          padding:10px 26px;
-          border-radius:10px;
-          border:0;
-          cursor:pointer;
-        ">继续</button>
+        <b>点击继续</b>
+      </div>
+      <button id="continueBtn" style="
+        font-size:20px;
+        padding:10px 26px;
+        border-radius:10px;
+        border:0;
+        cursor:pointer;
+      ">继续</button>
     `,
-     on_load: () => {
-    const finish = () => jsPsych.finishTrial();
-    document.getElementById("continueBtn")?.addEventListener("click", (e) => { e.stopPropagation(); finish(); });
+    on_load: () => {
+      const finish = () => jsPsych.finishTrial();
+      document.getElementById("continueBtn")?.addEventListener("click", (e) => {
+        e.stopPropagation();
+        finish();
+      });
     }
+  });
 
-});
+  // Main loop: block-wise preload
+  for (let blockStart = 0; blockStart < stimuli.length; blockStart += blockSize) {
+    const block = stimuli.slice(blockStart, blockStart + blockSize);
 
-  // Main loop
-  for (let i = 0; i < stimuli.length; i++) {
-    const s = stimuli[i];
-
-   // fixation
-timeline.push({
-  type: jsPsychHtmlKeyboardResponse,
-  stimulus: `
-    <div style="
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      height:100vh;
-      color:white;
-      font-size:56px;
-    ">+</div>
-  `,
-  choices: "NO_KEYS",
-  trial_duration: fixationMs,
-  data: { phase: "fixation" }
-});
-
-
-    // one-page 3 VAS
+    // 只预加载当前 block，避免一次性把所有图片都压进内存
     timeline.push({
-      type: jsPsychThreeVas, // from plugin-three-vas.js
-      stimulus: s.image,
-      image_id: s.image_id,
-      library: s.library,
-
-      // Pixel-consistent layout
-      frame_width: 1024,
-      frame_height: 768,
-      image_box_width: 900,
-      image_box_height: 520,
-
-      // If you later add calibration, set scale here (e.g., from jsPsych.data.getLastTrialData().values()[0].scale)
-      scale: 1.0,
-
-      q1: "对酒精的渴求",
-      q2: "愉悦程度",
-      q3: "唤醒程度",
-      left_label_1: "不渴求",      right_label_1: "强烈渴求",
-      left_label_2: "非常不愉快", right_label_2: "非常愉快",
-      left_label_3: "非常兴奋",      right_label_3: "非常平静",
-      button_label: "确认",
-
-      data: {phase: "three_vas", trial_index: i+1}
+      type: jsPsychPreload,
+      images: block.map(s => s.image)
     });
 
-    // break every block
-    if ((i+1) % blockSize === 0 && (i+1) < stimuli.length) {
+    for (let j = 0; j < block.length; j++) {
+      const globalIndex = blockStart + j;
+      const s = block[j];
+
+      // fixation
       timeline.push({
         type: jsPsychHtmlKeyboardResponse,
-        stimulus: `<div style="color:white; font-family:Arial; text-align:center; margin-top:120px;">
-          <p>休息一下</p>
-          <p>点击继续</p>
-        </div>
-        <button id="continueBtn" style="
-          font-size:20px;
-          padding:10px 26px;
-          border-radius:10px;
-          border:0;
-          cursor:pointer;
-        ">继续</button>
+        stimulus: `
+          <div style="
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            height:100vh;
+            color:white;
+            font-size:56px;
+          ">+</div>
         `,
-            on_load: () => {
-    const finish = () => jsPsych.finishTrial();
-    document.getElementById("continueBtn")?.addEventListener("click", (e) => { e.stopPropagation(); finish(); });
-    },
-        data: {phase: "break"}
+        choices: "NO_KEYS",
+        trial_duration: fixationMs,
+        data: { phase: "fixation" }
+      });
+
+      // one-page 3 VAS
+      timeline.push({
+        type: jsPsychThreeVas, // from plugin-three-vas.js
+        stimulus: s.image,
+        image_id: s.image_id,
+        library: s.library,
+
+        // Pixel-consistent layout
+        frame_width: 1024,
+        frame_height: 768,
+        image_box_width: 900,
+        image_box_height: 520,
+
+        // If you later add calibration, set scale here
+        scale: 1.0,
+
+        q1: "对酒精的渴求",
+        q2: "愉悦程度",
+        q3: "唤醒程度",
+        left_label_1: "不渴求",
+        right_label_1: "强烈渴求",
+        left_label_2: "非常不愉快",
+        right_label_2: "非常愉快",
+        left_label_3: "非常兴奋",
+        right_label_3: "非常平静",
+        button_label: "确认",
+
+        on_load: () => {
+          // 当前图片显示时，提前预热后面 2 张
+          warmupUpcomingImages(stimuli, globalIndex + 1, 2);
+        },
+
+        data: {
+          phase: "three_vas",
+          trial_index: globalIndex + 1,
+          block_index: Math.floor(blockStart / blockSize) + 1
+        }
+      });
+    }
+
+    // block 间休息
+    if (blockStart + blockSize < stimuli.length) {
+      timeline.push({
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: `
+          <div style="color:white; font-family:Arial; text-align:center; margin-top:120px;">
+            <p>休息一下</p>
+            <p>点击继续</p>
+          </div>
+          <button id="continueBtn" style="
+            font-size:20px;
+            padding:10px 26px;
+            border-radius:10px;
+            border:0;
+            cursor:pointer;
+          ">继续</button>
+        `,
+        on_load: () => {
+          const finish = () => jsPsych.finishTrial();
+          document.getElementById("continueBtn")?.addEventListener("click", (e) => {
+            e.stopPropagation();
+            finish();
+          });
+        },
+        data: { phase: "break" }
       });
     }
   }
 
   // Exit fullscreen & end
+
   timeline.push({
     type: jsPsychFullscreen,
     fullscreen_mode: false
