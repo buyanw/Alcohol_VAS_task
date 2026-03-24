@@ -1,0 +1,618 @@
+[
+  {
+    "image": "stimuli_first100/ABPS_alcohol/SDC11498.jpg",
+    "category": "ABPS_alcohol"
+  },
+  {
+    "image": "stimuli_first100/ABPS_alcohol/SDC11500.jpg",
+    "category": "ABPS_alcohol"
+  },
+  {
+    "image": "stimuli_first100/ABPS_alcohol/SDC11501.jpg",
+    "category": "ABPS_alcohol"
+  },
+  {
+    "image": "stimuli_first100/ABPS_alcohol/SDC11502.jpg",
+    "category": "ABPS_alcohol"
+  },
+  {
+    "image": "stimuli_first100/ABPS_alcohol/SDC11503.jpg",
+    "category": "ABPS_alcohol"
+  },
+  {
+    "image": "stimuli_first100/ABPS_alcohol/SDC11562.jpg",
+    "category": "ABPS_alcohol"
+  },
+  {
+    "image": "stimuli_first100/ABPS_alcohol/SDC11574.jpg",
+    "category": "ABPS_alcohol"
+  },
+  {
+    "image": "stimuli_first100/ABPS_alcohol/SDC11578.jpg",
+    "category": "ABPS_alcohol"
+  },
+  {
+    "image": "stimuli_first100/ABPS_alcohol/SDC11582.jpg",
+    "category": "ABPS_alcohol"
+  },
+  {
+    "image": "stimuli_first100/ABPS_alcohol/SDC11583.jpg",
+    "category": "ABPS_alcohol"
+  },
+  {
+    "image": "stimuli_first100/control_gemini/12.png",
+    "category": "control_gemini"
+  },
+  {
+    "image": "stimuli_first100/control_gemini/13.png",
+    "category": "control_gemini"
+  },
+  {
+    "image": "stimuli_first100/control_gemini/14.png",
+    "category": "control_gemini"
+  },
+  {
+    "image": "stimuli_first100/control_gemini/20.png",
+    "category": "control_gemini"
+  },
+  {
+    "image": "stimuli_first100/control_gemini/24.png",
+    "category": "control_gemini"
+  },
+  {
+    "image": "stimuli_first100/control_gemini/3.png",
+    "category": "control_gemini"
+  },
+  {
+    "image": "stimuli_first100/control_gemini/31.png",
+    "category": "control_gemini"
+  },
+  {
+    "image": "stimuli_first100/control_gemini/32.png",
+    "category": "control_gemini"
+  },
+  {
+    "image": "stimuli_first100/control_gemini/34.png",
+    "category": "control_gemini"
+  },
+  {
+    "image": "stimuli_first100/control_gemini/36.png",
+    "category": "control_gemini"
+  },
+  {
+    "image": "stimuli_first100/control_gemini/38.png",
+    "category": "control_gemini"
+  },
+  {
+    "image": "stimuli_first100/control_gemini/49.png",
+    "category": "control_gemini"
+  },
+  {
+    "image": "stimuli_first100/GAPED_neutral_resized/N001.png",
+    "category": "GAPED_neutral_resized"
+  },
+  {
+    "image": "stimuli_first100/GAPED_neutral_resized/N002.png",
+    "category": "GAPED_neutral_resized"
+  },
+  {
+    "image": "stimuli_first100/GAPED_neutral_resized/N003.png",
+    "category": "GAPED_neutral_resized"
+  },
+  {
+    "image": "stimuli_first100/GAPED_neutral_resized/N004.png",
+    "category": "GAPED_neutral_resized"
+  },
+  {
+    "image": "stimuli_first100/GAPED_neutral_resized/N006.png",
+    "category": "GAPED_neutral_resized"
+  },
+  {
+    "image": "stimuli_first100/GAPED_neutral_resized/N008.png",
+    "category": "GAPED_neutral_resized"
+  },
+  {
+    "image": "stimuli_first100/GAPED_neutral_resized/N009.png",
+    "category": "GAPED_neutral_resized"
+  },
+  {
+    "image": "stimuli_first100/GAPED_neutral_resized/N010.png",
+    "category": "GAPED_neutral_resized"
+  },
+  {
+    "image": "stimuli_first100/GAPED_neutral_resized/N011.png",
+    "category": "GAPED_neutral_resized"
+  },
+  {
+    "image": "stimuli_first100/GAPED_neutral_resized/N013.png",
+    "category": "GAPED_neutral_resized"
+  },
+  {
+    "image": "stimuli_first100/GAPED_neutral_resized/N014.png",
+    "category": "GAPED_neutral_resized"
+  },
+  {
+    "image": "stimuli_first100/GAPED_neutral_resized/N015.png",
+    "category": "GAPED_neutral_resized"
+  },
+  {
+    "image": "stimuli_first100/GAPED_neutral_resized/N016.png",
+    "category": "GAPED_neutral_resized"
+  },
+  {
+    "image": "stimuli_first100/GAPED_neutral_resized/N017.png",
+    "category": "GAPED_neutral_resized"
+  },
+  {
+    "image": "stimuli_first100/GAPED_neutral_resized/N018.png",
+    "category": "GAPED_neutral_resized"
+  },
+  {
+    "image": "stimuli_first100/GAPED_neutral_resized/N019.png",
+    "category": "GAPED_neutral_resized"
+  },
+  {
+    "image": "stimuli_first100/GAPED_neutral_resized/N020.png",
+    "category": "GAPED_neutral_resized"
+  },
+  {
+    "image": "stimuli_first100/GAPED_neutral_resized/N021.png",
+    "category": "GAPED_neutral_resized"
+  },
+  {
+    "image": "stimuli_first100/GAPED_neutral_resized/N022.png",
+    "category": "GAPED_neutral_resized"
+  },
+  {
+    "image": "stimuli_first100/GAPED_neutral_resized/N023.png",
+    "category": "GAPED_neutral_resized"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/1.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/10.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/100.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/11.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/12.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/13.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/14.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/15.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/16.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/17.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/18.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/19.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/2.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/20.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/21.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/22.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/23.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/24.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/25.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/26.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/27.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/28.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/29.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/3.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/30.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/31.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/32.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/33.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/34.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/35.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/36.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/37.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/38.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/39.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/4.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/40.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/41.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/42.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/43.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/44.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/45.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/46.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/47.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/48.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/49.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/5.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/50.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/51.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/52.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/53.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/54.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/55.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/56.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/57.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/58.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/59.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/6.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/60.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/61.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/62.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/63.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/64.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/65.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/66.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/67.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/68.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/69.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/7.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/70.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/71.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/72.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/73.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/74.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/75.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/76.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/77.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/78.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/79.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/8.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/80.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/81.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/82.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/83.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/84.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/85.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/86.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/87.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/88.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/89.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/9.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/90.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/91.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/92.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/93.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/94.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/95.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/96.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/97.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/98.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/Gemini3_alcohol_12.25resize/99.png",
+    "category": "Gemini3_alcohol_12.25resize"
+  },
+  {
+    "image": "stimuli_first100/WFAIS_alcohol_resized/00028.png",
+    "category": "WFAIS_alcohol_resized"
+  },
+  {
+    "image": "stimuli_first100/WFAIS_alcohol_resized/00047.png",
+    "category": "WFAIS_alcohol_resized"
+  },
+  {
+    "image": "stimuli_first100/WFAIS_alcohol_resized/00089.png",
+    "category": "WFAIS_alcohol_resized"
+  },
+  {
+    "image": "stimuli_first100/WFAIS_alcohol_resized/00110.png",
+    "category": "WFAIS_alcohol_resized"
+  },
+  {
+    "image": "stimuli_first100/WFAIS_alcohol_resized/00169.png",
+    "category": "WFAIS_alcohol_resized"
+  },
+  {
+    "image": "stimuli_first100/WFAIS_alcohol_resized/00242.png",
+    "category": "WFAIS_alcohol_resized"
+  },
+  {
+    "image": "stimuli_first100/WFAIS_alcohol_resized/00248.png",
+    "category": "WFAIS_alcohol_resized"
+  },
+  {
+    "image": "stimuli_first100/WFAIS_alcohol_resized/00252.png",
+    "category": "WFAIS_alcohol_resized"
+  },
+  {
+    "image": "stimuli_first100/WFAIS_alcohol_resized/00309.png",
+    "category": "WFAIS_alcohol_resized"
+  },
+  {
+    "image": "stimuli_first100/WFAIS_alcohol_resized/00339.png",
+    "category": "WFAIS_alcohol_resized"
+  },
+  {
+    "image": "stimuli_first100/WFAIS_alcohol_resized/00358.png",
+    "category": "WFAIS_alcohol_resized"
+  },
+  {
+    "image": "stimuli_first100/WFAIS_alcohol_resized/00468.png",
+    "category": "WFAIS_alcohol_resized"
+  }
+]

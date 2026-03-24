@@ -3,7 +3,7 @@ from pathlib import Path
 import json
 
 # 你可以按需改：如果 stimuli 不在当前目录下，改成 Path("你的路径/stimuli")
-STIMULI_DIR = Path("stimuli")
+STIMULI_DIR = Path("stimuli_first100")
 
 # 常见图片后缀（不区分大小写）
 IMG_EXTS = {".jpg", ".jpeg", ".png", ".gif", ".webp", ".bmp"}
@@ -36,12 +36,12 @@ def main():
             })
 
     # 输出 JSON
-    out_json = Path("manifest.json")
+    out_json = Path("manifest_first100.json")
     out_json.write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"✅ Wrote {out_json} with {len(manifest)} images")
 
     # （可选）同时输出 JS 版本，方便你直接在 HTML 里引用
-    out_js = Path("manifest.js")
+    out_js = Path("manifest_first100.js")
     out_js.write_text("const manifest = " + json.dumps(manifest, ensure_ascii=False, indent=2) + ";\n", encoding="utf-8")
     print(f"✅ Wrote {out_js}")
 
